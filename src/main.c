@@ -37,8 +37,8 @@ PBL_APP_INFO(MY_UUID,
 //#define TIME_HTTP_COOKIE 1131038282
 	
 /*GRect works like this - LEFT TOP WIDE HIGH*/
-#define TIME_FRAME      (GRect(0, 52, 144, 55))
-#define DATE_FRAME      (GRect(0, 108, 144, 30))
+#define TIME_FRAME      (GRect(0, 52, 144, 65))
+#define DATE_FRAME      (GRect(0, 104, 144, 30))
 	
 Window window;          /* main window */
 BmpContainer background_image;
@@ -238,7 +238,7 @@ void handle_init(AppContextRef ctx) {
   bmp_init_container(RESOURCE_ID_IMAGE_BACKGROUND, &background_image);
   layer_add_child(&window.layer, &background_image.layer.layer);
 /* TIME AND DATE FONTS*/
-  res_d = resource_get_handle(RESOURCE_ID_DATE_19);
+  res_d = resource_get_handle(RESOURCE_ID_DATE_20);
   res_h = resource_get_handle(RESOURCE_ID_TIME_52);
 
   font_date = fonts_load_custom_font(res_d);
@@ -249,6 +249,7 @@ void handle_init(AppContextRef ctx) {
   time_layer_init(&time_layer, window.layer.frame);
   time_layer_set_text_color(&time_layer, GColorBlack);
     time_layer_set_text_color(&time_layer, GColorWhite);
+	
     time_layer_set_background_color(&time_layer, GColorClear);
   time_layer_set_fonts(&time_layer, font_hour, font_hour);
   layer_set_frame(&time_layer.layer, TIME_FRAME);
@@ -332,12 +333,9 @@ void request_weather() {
 		http_location_request();
 		return;
 	}
-	
-	/////////////////////////////////////////////////////////////////////////////
-	//ENTER YOUR PHP LOCATION BELOW
 	// Build the HTTP request
 	DictionaryIterator *body;
-	HTTPResult result = http_out_get("PUT YOUR LINK TO PHP HERE IE HTTP://SOMEWHERE.COM/INDEX.PHP", WEATHER_HTTP_COOKIE, &body);
+	HTTPResult result = http_out_get("Your Web URL", WEATHER_HTTP_COOKIE, &body);
 	if(result != HTTP_OK) {
 		weather_layer_set_icon(&weather_layer, WEATHER_ICON_HTTP_ERROR);
 		return;

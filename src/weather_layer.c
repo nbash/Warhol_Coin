@@ -31,43 +31,43 @@ void weather_layer_init(WeatherLayer* weather_layer, GPoint pos) {
 	layer_add_child(&weather_layer->layer, &weather_layer->temp_layer_background.layer);
 	
     // Add temperature layer
-	text_layer_init(&weather_layer->temp_layer, GRect(10, -7, 72, 95));
+	text_layer_init(&weather_layer->temp_layer, GRect(0, -3, 71, 50));
 	text_layer_set_background_color(&weather_layer->temp_layer, GColorClear);
-	text_layer_set_text_color(&weather_layer->lowvalue_layer, GColorWhite);
-	text_layer_set_text_alignment(&weather_layer->temp_layer, GTextAlignmentCenter);
-	text_layer_set_font(&weather_layer->temp_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TEMP_45)));
+	text_layer_set_text_color(&weather_layer->temp_layer, GColorBlack);
+	text_layer_set_text_alignment(&weather_layer->temp_layer, GTextAlignmentRight);
+	text_layer_set_font(&weather_layer->temp_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TEMP_42)));
 	layer_add_child(&weather_layer->layer, &weather_layer->temp_layer.layer);
 
 	//ADD HIGH LABEL VALUE LAYER
-	text_layer_init(&weather_layer->highvalue_layer, GRect(116, 2, 32, 18));
+	text_layer_init(&weather_layer->highvalue_layer, GRect(118, 2, 32, 18));
 	text_layer_set_background_color(&weather_layer->highvalue_layer, GColorClear);
 	text_layer_set_text_color(&weather_layer->highvalue_layer, GColorWhite);
 	text_layer_set_text_alignment(&weather_layer->highvalue_layer, GTextAlignmentLeft);
-	text_layer_set_font(&weather_layer->highvalue_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_HIGH_LOW_18)));
+	text_layer_set_font(&weather_layer->highvalue_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_HIGH_LOW_16)));
 	layer_add_child(&weather_layer->layer, &weather_layer->highvalue_layer.layer);
 	
 	//ADD LOW LABEL VALUE LAYER
-	text_layer_init(&weather_layer->lowvalue_layer, GRect(116, 20, 32, 18));
+	text_layer_init(&weather_layer->lowvalue_layer, GRect(118, 20, 32, 18));
 	text_layer_set_background_color(&weather_layer->lowvalue_layer, GColorClear);
 	text_layer_set_text_color(&weather_layer->lowvalue_layer, GColorWhite);
 	text_layer_set_text_alignment(&weather_layer->lowvalue_layer, GTextAlignmentLeft);
-	text_layer_set_font(&weather_layer->lowvalue_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_HIGH_LOW_18)));
+	text_layer_set_font(&weather_layer->lowvalue_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_HIGH_LOW_16)));
 	layer_add_child(&weather_layer->layer, &weather_layer->lowvalue_layer.layer);	
 
 	
 	//LTC_layer	
-	text_layer_init(&weather_layer->ltc_layer, GRect(0, 141, 55, 35));
+	text_layer_init(&weather_layer->ltc_layer, GRect(15, 140, 55, 35));
 	text_layer_set_background_color(&weather_layer->ltc_layer, GColorClear);
 	text_layer_set_text_color(&weather_layer->ltc_layer, GColorWhite);
-	text_layer_set_text_alignment(&weather_layer->ltc_layer, GTextAlignmentRight);
+	text_layer_set_text_alignment(&weather_layer->ltc_layer, GTextAlignmentCenter);
 	text_layer_set_font(&weather_layer->ltc_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PRICES_22)));
 	layer_add_child(&weather_layer->layer, &weather_layer->ltc_layer.layer);
 	
 	//BTC_layer	
-	text_layer_init(&weather_layer->btc_layer, GRect(85, 141, 48, 35));
+	text_layer_init(&weather_layer->btc_layer, GRect(87, 140, 57, 35));
 	text_layer_set_background_color(&weather_layer->btc_layer, GColorClear);
 	text_layer_set_text_color(&weather_layer->btc_layer, GColorBlack);
-	text_layer_set_text_alignment(&weather_layer->btc_layer, GTextAlignmentRight);
+	text_layer_set_text_alignment(&weather_layer->btc_layer, GTextAlignmentCenter);
 	text_layer_set_font(&weather_layer->btc_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PRICES_22)));
 	layer_add_child(&weather_layer->layer, &weather_layer->btc_layer.layer);
 	
@@ -144,17 +144,17 @@ void weather_layer_set_temperature(WeatherLayer* weather_layer, int16_t t) {
 	if (strlen(weather_layer->temp_str) == 1 || 
 		(strlen(weather_layer->temp_str) == 2 && weather_layer->temp_str[0] != '1')) {
 	  // Don't move temperature if between 0-9° or 20°-99°
-	  text_layer_set_font(&weather_layer->temp_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TEMP_45)));
+	  text_layer_set_font(&weather_layer->temp_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TEMP_42)));
 	  text_layer_set_text_alignment(&weather_layer->temp_layer, GTextAlignmentCenter);
 	  memcpy(&weather_layer->temp_str[degree_pos], " ", 3);
 	} else if (strlen(weather_layer->temp_str) == 2 && weather_layer->temp_str[0] == '1') {
 	  // Move temperature slightly to the left if between 10°-19°
-	  text_layer_set_font(&weather_layer->temp_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TEMP_45)));
-	  text_layer_set_text_alignment(&weather_layer->temp_layer, GTextAlignmentLeft);
+	  text_layer_set_font(&weather_layer->temp_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TEMP_42)));
+	  text_layer_set_text_alignment(&weather_layer->temp_layer, GTextAlignmentCenter);
 	  memcpy(&weather_layer->temp_str[degree_pos], " ", 3); 
 	} else if (strlen(weather_layer->temp_str) > 2) { 
 	  // Shrink font size if above 99° or below -9°
-	  text_layer_set_font(&weather_layer->temp_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TEMP_45)));
+	  text_layer_set_font(&weather_layer->temp_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TEMP_42)));
 	  text_layer_set_text_alignment(&weather_layer->temp_layer, GTextAlignmentCenter);
 	  memcpy(&weather_layer->temp_str[degree_pos], " ", 3);
 	}
